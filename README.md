@@ -237,6 +237,10 @@ cd ShortLQ
 
 https://youtu.be/88dAz-sRD54?si=e5CMzxG8lwt41CnT
 
+## Website Live at
+
+https://shortlq.netlify.app/
+
 ---
 
 **This project is a part of a hackathon run by https://katomaran.com**
