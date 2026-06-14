@@ -42,6 +42,7 @@ const urlSchema = new mongoose.Schema({
 });
 
 // Index for faster lookups
+urlSchema.index({ shortCode: 1 });
 urlSchema.index({ userId: 1, createdAt: -1 });
 urlSchema.index({ expiresAt: 1 });       // for expiry queries
 urlSchema.index({ lastVisited: 1 });     // for inactive cleanup
