@@ -1,307 +1,156 @@
-# URL Shortener with Analytics 🔗
+# ShortLQ - URL Shortener with Analytics 🔗
 
-A full-stack URL Shortener application with user authentication, real-time analytics tracking, and a beautiful purple glassmorphism UI design.
+A full-stack URL Shortener application built with **React, Node.js, Express, and MongoDB**, featuring user authentication, real-time analytics tracking, customizable link expiry, and a premium interactive WebGL water-ripple glassmorphism user interface.
 
-![Purple Glassmorphism Design](https://img.shields.io/badge/Design-Glassmorphism-8B5CF6)
-![React](https://img.shields.io/badge/React-18-61DAFB)
-![Node.js](https://img.shields.io/badge/Node.js-Express-339933)
-![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248)
+This project is designed to be highly responsive, modern, and engaging. It includes random background image selections on every page load with interactive water distortion physics that react dynamically to cursor movement.
 
-## 🎯 Features
+---
+
+## 🎨 Interactive Visual Experience
+
+### 🌊 WebGL Water Ripple & Random Backgrounds
+The application utilizes an interactive WebGL-based water ripple distortion effect.
+- **Dynamic Physics**: When a user moves their mouse over any page, realistic water ripples follow the cursor.
+- **Randomized Themes**: Every time the application is loaded, the frontend randomly selects one of 6 high-definition background images (`img1.jpg` to `img6.jpg`) located in `frontend/public/bg/`, offering a unique aesthetic experience on every visit while keeping the water simulation intact.
+
+### 🌟 Premium Glassmorphism UI
+- Frosted glass cards with high-contrast elements, neon glowing gradients, and clean layout cards.
+- Custom particle trail cursors that track mouse movement.
+- Fully responsive styling optimized for mobile, tablet, and desktop layouts.
+
+---
+
+## 🧠 AI Planning & Architecture Document
+
+### 1. Development Process & Workflow
+The development followed a modular, structured AI pair-programming workflow:
+1. **Requirements Analysis & Planning**: Mapping the hackathon requirements, user specifications, and technical constraints.
+2. **Database Modeling**: Planning schemas for User authentication, URLs, and Analytics event tracking, adding index optimizations.
+3. **Core API Backend**: Establishing REST API endpoints for user authentication, URL shortening, redirect handlers, and analytics reporting.
+4. **Interactive UI Foundation**: Creating the WebGL Canvas pool and custom CSS design system variables to style pages without generic browser presets.
+5. **Dashboard & Expiry Pickers**: Developing components for managing URLs, generating instant copy actions, and implementing collapsible selection controls for custom link lifespans.
+6. **Automation & Cleanup**: Building a scheduled cron system to automatically delete expired links or links left inactive for 6 months to optimize database sizing.
+7. **Verification & Refinement**: Running builds, checking environment configuration safety, and wiring up permanent account deletion settings.
+
+### 2. Application Architecture Diagram
+
+```mermaid
+graph TD
+    Client[Browser / React Frontend] <-->|REST API / JWT Auth| Server[Node.js / Express Backend]
+    Client <-->|Short Code Redirect Request| Server
+    Server <-->|Mongoose ODM| DB[(MongoDB Database)]
+    Server -.->|Scheduled Task / Daily at 2 AM| Cron[Cleanup Cron Job]
+    Cron -->|Permanent Cascade Deletions| DB
+    
+    subgraph MongoDB Collections
+        Users[users Collection]
+        URLs[urls Collection]
+        Analytics[analytics Collection]
+    end
+    
+    DB --- Users
+    DB --- URLs
+    DB --- Analytics
+```
+
+### 3. Core Logic Workflows
+
+#### A. Link Shortening & Expiry
+```
+User Inputs Long URL + Expiry Timer -> Frontend Validates URL Format -> API Requests Backend
+-> Backend Generates Unique 6-8 Character Short Code
+-> Backend Calculates 'expiresAt' (e.g. Current Time + 5 minutes or 6 months)
+-> Saved to MongoDB
+```
+
+#### B. Redirection & Expiry Check
+```
+Visitor Clicks shortiq.io/abc123 -> Express Route Handles GET /:shortCode
+-> Queries URL in MongoDB
+-> IF isExpired === true OR (expiresAt exists AND expiresAt < now):
+     Returns 410 Gone Error page / Informs Visitor Link has expired
+-> ELSE:
+     Increments total clicks count in background
+     Logs new Analytics event (timestamp, user agent, IP)
+     Returns HTTP 302 Redirect to the original long destination URL
+```
+
+#### C. Daily Database Cleanup Cron Job
+Runs automatically every day at **2:00 AM** to free database storage:
+- **Expired Links**: Searches for URLs where `expiresAt < now`.
+- **Inactive Links**: Searches for URLs where `lastVisited` is older than 6 months, or if never visited, `createdAt` is older than 6 months.
+- **Cascade Deletion**: Permanently deletes these URL documents and their corresponding click analytics entries to maintain high performance.
+
+#### D. Permanent Account Self-Deletion
+Available directly in the **Account Settings** modal:
+- User clicks "Settings" in the authenticated Navbar.
+- Enters password and types `DELETE` to verify intent.
+- Backend deletes the User document, and automatically cascade-deletes all associated URLs and their analytics data.
+
+---
+
+## 🎯 Features Checklist
 
 ### Mandatory Features ✅
+- **Authentication**:
+  - [x] Secure user signup and login with hashed passwords.
+  - [x] JWT-based authorization with protected route guards.
+  - [x] Strict user ownership (users can only view/delete their own links).
+- **URL Shortening**:
+  - [x] Input validation (supports only valid URLs starting with `http://` or `https://`).
+  - [x] Automatic unique 6-8 character short code generation.
+  - [x] Server-side redirection with analytics tracking.
+- **User Dashboard**:
+  - [x] Clean, responsive, full-grid layout.
+  - [x] Table/Cards showing original URL, short URL, created date, and total clicks.
+  - [x] Easy copy-to-clipboard action button.
+  - [x] Quick delete button for URLs.
+- **Analytics Details**:
+  - [x] Tracks total click counts per URL.
+  - [x] Records visit timestamps, IP addresses, referrers, and user agents.
+  - [x] Detailed stats page displaying total clicks, last visited timestamp, and full chronological visit history list.
 
-#### Authentication
-- ✅ User signup and login with email/password
-- ✅ JWT-based authentication
-- ✅ Protected dashboard routes
-- ✅ Each user manages only their own URLs
+### Advanced Bonus Features 🎁
+- [x] **Custom Link Expiry**: Options from 5 minutes, 1 hour, 1 day, 7 days, 1 month, 3 months, 6 months, to "Never".
+- [x] **Automated DB Cleanup**: Background cron schedule cleaning inactive and expired links.
+- [x] **Interactive WebGL Visuals**: Live water ripple animation running on custom fragment shaders.
+- [x] **Randomized Themes**: Dynamically chooses background image assets on every load.
+- [x] **Permanent Cascade Account Deletion**: Self-service security dashboard allowing full user data wipe.
 
-#### URL Shortening
-- ✅ Submit long URL and generate unique short URL
-- ✅ 6-8 character unique short codes
-- ✅ Automatic redirect from short URL to original URL
-- ✅ URL validation before shortening
+---
 
-#### User Dashboard
-- ✅ View all created short URLs
-- ✅ Display original URL, short URL, created date, and total clicks
-- ✅ Delete shortened URLs
-- ✅ Copy short URL to clipboard with one click
+## 📊 Database Schema Details
 
-#### Analytics
-- ✅ Track click count for each short URL
-- ✅ Record timestamp of each visit
-- ✅ Analytics page showing:
-  - Total click count
-  - Last visited time
-  - Recent visit history (last 10 visits)
-
-#### UI Requirements
-- ✅ Fully responsive interface
-- ✅ Clean, modern dashboard layout
-- ✅ Loading, success, and error states
-- ✅ Form validation with error messages
-- ✅ Purple glassmorphism design inspired by HireUp
-
-### Bonus Features 🎁
-- 🔄 Custom alias for short URLs (optional)
-- 📊 Visual analytics with charts
-- 🎨 Beautiful gradient backgrounds
-- 🌙 Smooth animations and transitions
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **React 18** - UI framework
-- **Vite** - Build tool
-- **React Router v6** - Client-side routing
-- **Axios** - HTTP client
-- **Context API** - State management
-- **CSS3** - Glassmorphism styling
-
-### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - Database
-- **Mongoose** - ODM
-- **JWT** - Authentication
-- **bcryptjs** - Password hashing
-- **express-validator** - Input validation
-
-## 📋 Prerequisites
-
-Before running this application, make sure you have:
-
-- **Node.js** (v16 or higher) - [Download](https://nodejs.org/)
-- **MongoDB** (v5 or higher) - [Download](https://www.mongodb.com/try/download/community)
-- **npm** or **yarn** package manager
-
-## 🚀 Setup Instructions
-
-### 1. Clone the Repository
-
-```bash
-git clone <your-repo-url>
-cd url-shortener
-```
-
-### 2. Backend Setup
-
-```bash
-# Navigate to backend directory
-cd backend
-
-# Install dependencies
-npm install
-
-# Create .env file
-cp .env.example .env
-```
-
-Edit the `.env` file with your configuration:
-
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/url-shortener
-JWT_SECRET=your_super_secret_jwt_key_change_this_in_production
-NODE_ENV=development
-FRONTEND_URL=http://localhost:5173
-```
-
-```bash
-# Start MongoDB (if not running as service)
-mongod
-
-# Start the backend server
-npm run dev
-```
-
-The backend will run on `http://localhost:5000`
-
-### 3. Frontend Setup
-
-Open a new terminal:
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install dependencies
-npm install
-
-# Create .env file
-cp .env.example .env
-```
-
-Edit the `.env` file:
-
-```env
-VITE_API_URL=http://localhost:5000
-```
-
-```bash
-# Start the frontend development server
-npm run dev
-```
-
-The frontend will run on `http://localhost:5173`
-
-### 4. Access the Application
-
-Open your browser and navigate to:
-- **Frontend:** http://localhost:5173
-- **Backend API:** http://localhost:5000
-
-## 📁 Project Structure
-
-```
-url-shortener/
-├── backend/
-│   ├── config/
-│   │   └── db.js                 # MongoDB connection
-│   ├── controllers/
-│   │   ├── authController.js     # Authentication logic
-│   │   ├── urlController.js      # URL shortening logic
-│   │   └── analyticsController.js # Analytics logic
-│   ├── middleware/
-│   │   ├── auth.js               # JWT verification
-│   │   └── validation.js         # Input validation
-│   ├── models/
-│   │   ├── User.js               # User schema
-│   │   ├── URL.js                # URL schema
-│   │   └── Analytics.js          # Analytics schema
-│   ├── routes/
-│   │   ├── auth.js               # Auth routes
-│   │   ├── urls.js               # URL routes
-│   │   └── analytics.js          # Analytics routes
-│   ├── utils/
-│   │   ├── generateShortCode.js  # Short code generator
-│   │   └── validateUrl.js        # URL validator
-│   ├── .env                      # Environment variables
-│   ├── package.json
-│   └── server.js                 # Entry point
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Auth/             # Login & Signup
-│   │   │   ├── Dashboard/        # Dashboard components
-│   │   │   ├── URLShortener/     # URL creation
-│   │   │   ├── Analytics/        # Analytics display
-│   │   │   └── Common/           # Reusable components
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx   # Auth state management
-│   │   ├── services/
-│   │   │   └── api.js            # API calls
-│   │   ├── styles/
-│   │   │   ├── App.css
-│   │   │   └── glassmorphism.css
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── .env
-│   ├── package.json
-│   └── vite.config.js
-├── README.md
-└── PLANNING.md
-```
-
-## 🎨 Design System
-
-### Purple Glassmorphism Theme
-
-The application features a modern glassmorphism design with a purple color scheme:
-
-- **Primary Purple:** `#8B5CF6`
-- **Light Purple:** `#A78BFA`
-- **Dark Purple:** `#6D28D9`
-- **Background:** Gradient from violet to pink
-- **Glass Effect:** `backdrop-filter: blur(10px)` with semi-transparent backgrounds
-
-### Key Design Elements
-- Frosted glass cards with blur effects
-- Smooth gradient backgrounds
-- Rounded corners and soft shadows
-- Hover animations and transitions
-- Responsive grid layouts
-
-## 🔌 API Endpoints
-
-### Authentication
-- `POST /api/auth/signup` - Register new user
-- `POST /api/auth/login` - Login user
-
-### URLs
-- `POST /api/urls` - Create short URL (protected)
-- `GET /api/urls` - Get user's URLs (protected)
-- `DELETE /api/urls/:id` - Delete URL (protected)
-- `GET /:shortCode` - Redirect to original URL (public)
-
-### Analytics
-- `GET /api/analytics/:urlId` - Get analytics for URL (protected)
-
-## 🧪 Testing
-
-### Manual Testing Checklist
-
-1. **Authentication**
-   - [ ] Sign up with new account
-   - [ ] Login with existing account
-   - [ ] Access protected routes
-   - [ ] Logout functionality
-
-2. **URL Shortening**
-   - [ ] Create short URL with valid long URL
-   - [ ] Validate invalid URLs are rejected
-   - [ ] Verify unique short codes are generated
-   - [ ] Test redirect functionality
-
-3. **Dashboard**
-   - [ ] View all user URLs
-   - [ ] Copy short URL to clipboard
-   - [ ] Delete URL
-   - [ ] View analytics for each URL
-
-4. **Analytics**
-   - [ ] Click tracking works
-   - [ ] Timestamps are recorded
-   - [ ] Visit history displays correctly
-
-5. **UI/UX**
-   - [ ] Responsive on mobile, tablet, desktop
-   - [ ] Loading states display correctly
-   - [ ] Error messages are clear
-   - [ ] Success notifications work
-
-## 📊 Database Schema
-
-### User Collection
+### User Collection (`users`)
 ```javascript
 {
   _id: ObjectId,
-  email: String (unique),
-  password: String (hashed),
+  email: String,       // Unique, normalized index
+  password: String,    // Hashed with bcrypt (10 rounds)
   createdAt: Date
 }
 ```
 
-### URL Collection
+### URL Collection (`urls`)
 ```javascript
 {
   _id: ObjectId,
-  userId: ObjectId (ref: User),
+  userId: ObjectId,      // Reference -> User._id (indexed)
   originalUrl: String,
-  shortCode: String (unique),
+  shortCode: String,     // Unique alphanumeric key (indexed)
   createdAt: Date,
   clicks: Number,
-  lastVisited: Date
+  lastVisited: Date,
+  expiresAt: Date,       // Optional, user-defined limit
+  isExpired: Boolean     // Quick redirect validation flag
 }
 ```
 
-### Analytics Collection
+### Analytics Collection (`analytics`)
 ```javascript
 {
   _id: ObjectId,
-  urlId: ObjectId (ref: URL),
+  urlId: ObjectId,      // Reference -> URL._id (indexed, cascade deleted)
   timestamp: Date,
   userAgent: String,
   referer: String,
@@ -309,90 +158,86 @@ The application features a modern glassmorphism design with a purple color schem
 }
 ```
 
-## 🎥 Demo Video
+---
 
-**[Link to Demo Video]** - *(If you don't submit an explanatory video, your submission will not be reviewed)*
+## 🚀 Setup & Installation Instructions
 
-The demo video demonstrates:
-1. User signup and login
-2. Creating shortened URLs
-3. Copying and using short URLs
-4. Viewing analytics
-5. Managing URLs (delete functionality)
-6. Responsive design showcase
+### Prerequisites
+- **Node.js** (v16.x or higher)
+- **MongoDB** (running locally on default port 27017 or a MongoDB Atlas cloud URI)
+- **npm** or **yarn** package manager
 
-## 🔒 Security Features
+### 1. Clone & Project Initialization
+```bash
+git clone https://github.com/sarthar3/ShortLQ.git
+cd ShortLQ
+```
 
-- Passwords hashed with bcryptjs (10 salt rounds)
-- JWT tokens for secure authentication
-- Protected API routes with middleware
-- Input validation on all endpoints
-- CORS configuration for frontend access
-- Environment variables for sensitive data
+### 2. Backend Environment & Run
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Install dependecies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file by copying the example:
+   ```bash
+   cp .env.example .env
+   ```
+4. Define your config variables in `.env`:
+   ```env
+   PORT=5000
+   MONGODB_URI=mongodb://localhost:27017/shortlq
+   JWT_SECRET=your_super_secret_jwt_signature_key
+   NODE_ENV=development
+   FRONTEND_URL=http://localhost:5173
+   ```
+5. Start the backend development server:
+   ```bash
+   npm run dev
+   ```
+   *The server runs on `http://localhost:5000`.*
 
-## 🚀 Deployment
+### 3. Frontend Environment & Run
+1. Open a new terminal and navigate to the frontend directory:
+   ```bash
+   cd ../frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file by copying the example:
+   ```bash
+   cp .env.example .env
+   ```
+4. Configure the API endpoint in `.env`:
+   ```env
+   VITE_API_URL=http://localhost:5000
+   ```
+5. Start the frontend development server:
+   ```bash
+   npm run dev
+   ```
+   *The application will open on `http://localhost:5173`.*
 
-### Backend Deployment (Render/Railway)
-1. Create new web service
-2. Connect GitHub repository
-3. Set environment variables
-4. Deploy from main branch
-
-### Frontend Deployment (Vercel/Netlify)
-1. Connect GitHub repository
-2. Set build command: `npm run build`
-3. Set output directory: `dist`
-4. Add environment variable: `VITE_API_URL`
-
-### Database (MongoDB Atlas)
-1. Create free cluster
-2. Get connection string
-3. Update `MONGODB_URI` in backend
+---
 
 ## 📝 Assumptions Made
+1. Users will input valid URLs with protocol headers (`http://` or `https://`). If omitted, the app validation flags an instruction to include the protocol.
+2. Short codes should remain simple and alphanumeric for readability.
+3. Once an account is deleted, the cascade behavior permanently cleans all tracking records to preserve database space. No backup soft-deleting exists.
+4. Database cleanups run daily at 2:00 AM, using the server host's local timezone.
 
-1. Users will provide valid email addresses
-2. MongoDB is running locally or connection string is provided
-3. Short codes are 6-8 characters (alphanumeric)
-4. Analytics tracking is basic (timestamp, user agent, IP)
-5. No rate limiting implemented (can be added)
-6. Single-page application (SPA) architecture
+---
 
-## 🎯 AI Planning Document
+## 🎥 Walkthrough Video Demo
 
-See [`PLANNING.md`](./PLANNING.md) for detailed:
-- Architecture diagrams
-- Feature breakdown
-- Development workflow
-- Timeline and milestones
-
-## 👨‍💻 Development Notes
-
-This project was built using AI code generation tools following proper workflow:
-1. Planning and architecture design
-2. Feature listing and prioritization
-3. Step-by-step implementation
-4. Testing and refinement
-5. Documentation
-
-All generated code has been reviewed and understood by the developer.
-
-## 📄 License
-
-This project is part of a hackathon submission.
-
-## 🙏 Acknowledgments
-
-- Design inspired by HireUp's beautiful glassmorphism UI
-- Built for hackathon hosted by [Katomaran](https://katomaran.com)
+**[Link to Video Demo]**  
+*(Note: Expose application walkthrough, click analytics, background image selection, expiry features, and settings validation).*
 
 ---
 
 **This project is a part of a hackathon run by https://katomaran.com**
-
-**Submission Deadline:** 12 PM on Sunday, June 14th, 2026
-
----
-
-Made with 💜 and ☕#   S h o r t L Q  
- 

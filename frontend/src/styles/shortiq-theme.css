@@ -1,0 +1,458 @@
+/* ShortIQ Orange Theme — Premium Dark UI */
+
+:root {
+  /* === Teal Palette === */
+  --teal-50:  #e6f4f3;
+  --teal-100: #ccebe9;
+  --teal-200: #99d6d3;
+  --teal-300: #66c2bd;
+  --teal-400: #3fadad;
+  --teal-500: #317873;
+  --teal-600: #27605c;
+  --teal-700: #1d4845;
+  --teal-800: #14302e;
+  --teal-900: #0a1817;
+
+  --cyan-400:  #4cd2cc;
+  --cyan-500:  #3bbab4;
+
+  /* === Primary Colors === */
+  --primary-dark:    #051413;
+  --primary-gray:    #0c2624;
+  --primary-light:   #133d3a;
+  --accent-orange:   #317873;
+  --accent-amber:    #4cd2cc;
+  --accent-coral:    #4ca6a1;
+
+  /* === Background === */
+  --bg-primary:    #030d0c;
+  --bg-secondary:  #061716;
+  --bg-card:       rgba(8, 26, 25, 0.85);
+  --bg-card-solid: #081a19;
+  --bg-hover:      rgba(49, 120, 115, 0.08);
+  --bg-glass:      rgba(6, 21, 20, 0.7);
+
+  /* === Text === */
+  --text-primary:   #e6f4f3;
+  --text-secondary: #99cccc;
+  --text-muted:     #669999;
+  --text-white:     #ffffff;
+
+  /* === Border & Shadow === */
+  --border-color:   rgba(49, 120, 115, 0.2);
+  --border-bright:  rgba(49, 120, 115, 0.45);
+  --shadow-sm:  0 1px 3px rgba(49, 120, 115, 0.15);
+  --shadow-md:  0 4px 16px rgba(49, 120, 115, 0.18);
+  --shadow-lg:  0 10px 40px rgba(49, 120, 115, 0.22);
+  --shadow-xl:  0 20px 60px rgba(49, 120, 115, 0.28);
+  --glow-sm:    0 0 12px rgba(49, 120, 115, 0.4);
+  --glow-md:    0 0 28px rgba(49, 120, 115, 0.5);
+  --glow-lg:    0 0 60px rgba(49, 120, 115, 0.35);
+
+  /* === Status Colors === */
+  --success: #4ade80;
+  --error:   #f87171;
+  --warning: #3bbab4;
+  --info:    #38bdf8;
+
+  /* === Spacing === */
+  --spacing-xs:  4px;
+  --spacing-sm:  8px;
+  --spacing-md:  16px;
+  --spacing-lg:  24px;
+  --spacing-xl:  32px;
+  --spacing-2xl: 48px;
+
+  /* === Border Radius === */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* === Typography === */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-weight-normal:   400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+}
+
+/* ============================================================
+   GLOBAL BASE
+============================================================ */
+body.custom-cursor-active, 
+body.custom-cursor-active * {
+  cursor: none !important;
+}
+
+html, body {
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+/* Subtle dark overlay so content stays readable over water ripple */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 13, 12, 0.55);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Very light extra layer for depth */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 10, 9, 0.25);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ============================================================
+   SCROLLBAR
+============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #030d0c; }
+::-webkit-scrollbar-thumb {
+  background: rgba(49, 120, 115, 0.4);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(49, 120, 115, 0.7); }
+
+/* ============================================================
+   GLASS CARDS
+============================================================ */
+.modern-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 165, 50, 0.08);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-card:hover {
+  border-color: var(--border-bright);
+  box-shadow: var(--shadow-lg), var(--glow-sm);
+  transform: translateY(-3px);
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn-primary {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 60%, #c2410c 100%);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-weight: var(--font-weight-semibold);
+  font-size: 14px;
+  cursor: none !important;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.45), inset 0 1px 0 rgba(255, 200, 100, 0.2);
+  letter-spacing: 0.2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 24px rgba(249, 115, 22, 0.6), var(--glow-sm);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: rgba(249, 115, 22, 0.08);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-weight: var(--font-weight-semibold);
+  font-size: 14px;
+  cursor: none !important;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  background: rgba(249, 115, 22, 0.16);
+  border-color: var(--border-bright);
+  box-shadow: var(--glow-sm);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--amber-400), var(--accent-orange));
+  color: #0f0500;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-weight: var(--font-weight-bold);
+  font-size: 14px;
+  cursor: none !important;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-accent:hover {
+  box-shadow: var(--shadow-lg), var(--glow-md);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   INPUTS
+============================================================ */
+.modern-input {
+  background: rgba(20, 8, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: all 0.25s ease;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.modern-input:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2), var(--glow-sm);
+  background: rgba(25, 10, 0, 0.8);
+}
+
+.modern-input::placeholder { color: var(--text-muted); }
+
+/* ============================================================
+   STATS CARDS
+============================================================ */
+.stat-card-modern {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card-modern:hover {
+  border-color: var(--border-bright);
+  box-shadow: var(--shadow-md), var(--glow-sm);
+}
+
+.stat-value-modern {
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--accent-orange);
+  margin-bottom: var(--spacing-sm);
+  text-shadow: var(--glow-sm);
+}
+
+.stat-label-modern {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: var(--font-weight-medium);
+}
+
+/* ============================================================
+   BADGES
+============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.3px;
+}
+
+.badge-success {
+  background: rgba(74, 222, 128, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.badge-error {
+  background: rgba(248, 113, 113, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+.badge-info {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--info);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.badge-orange {
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--accent-orange);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+/* ============================================================
+   ICON BUTTONS
+============================================================ */
+.icon-btn {
+  background: rgba(249, 115, 22, 0.06);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  cursor: none !important;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn:hover {
+  background: rgba(249, 115, 22, 0.14);
+  color: var(--text-primary);
+  border-color: var(--border-bright);
+  box-shadow: var(--glow-sm);
+}
+
+.icon-btn-danger { color: var(--error); }
+.icon-btn-danger:hover {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: var(--error);
+  color: var(--error);
+  box-shadow: 0 0 10px rgba(248, 113, 113, 0.3);
+}
+
+/* ============================================================
+   DIVIDER
+============================================================ */
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: var(--spacing-lg) 0;
+}
+
+/* ============================================================
+   SPINNER
+============================================================ */
+.spinner-modern {
+  border: 3px solid rgba(249, 115, 22, 0.15);
+  border-top: 3px solid var(--accent-orange);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 0.8s linear infinite;
+  box-shadow: var(--glow-sm);
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   ALERTS
+============================================================ */
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(8px);
+}
+
+.alert-success {
+  background: rgba(74, 222, 128, 0.08);
+  color: var(--success);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.alert-error {
+  background: rgba(248, 113, 113, 0.08);
+  color: var(--error);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+.alert-info {
+  background: rgba(56, 189, 248, 0.08);
+  color: var(--info);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+/* ============================================================
+   ANIMATIONS
+============================================================ */
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Orange pulse animation */
+@keyframes orangePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(249, 115, 22, 0); }
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+============================================================ */
+.text-xs   { font-size: 12px; }
+.text-sm   { font-size: 13px; }
+.text-base { font-size: 14px; }
+.text-lg   { font-size: 16px; }
+.text-xl   { font-size: 18px; }
+.text-2xl  { font-size: 24px; }
+.text-3xl  { font-size: 30px; }
+.text-4xl  { font-size: 36px; }
+
+.font-normal   { font-weight: var(--font-weight-normal); }
+.font-medium   { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold     { font-weight: var(--font-weight-bold); }
+
+.text-primary   { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted     { color: var(--text-muted); }
+.text-orange    { color: var(--accent-orange); }
+.text-amber     { color: var(--amber-400); }
