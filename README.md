@@ -235,8 +235,7 @@ cd ShortLQ
 
 ## 🎥 Walkthrough Video Demo
 
-**[Link to Video Demo]**  
-*(Note: Expose application walkthrough, click analytics, background image selection, expiry features, and settings validation).*
+https://youtu.be/88dAz-sRD54?si=e5CMzxG8lwt41CnT
 
 ---
 
