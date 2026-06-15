@@ -19,7 +19,7 @@ const HeroSection = () => {
 
         {/* Subtitle */}
         <p className="hero-subtitle">
-          ShortIQ turns your long, messy URLs into sleek, trackable links —
+          ShortLQ turns your long, messy URLs into sleek, trackable links —
           with real-time analytics, custom expiry, and full dashboard control.
         </p>
 

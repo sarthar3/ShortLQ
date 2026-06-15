@@ -9,7 +9,7 @@ import Signup from './components/Auth/Signup';
 import Dashboard from './components/Dashboard/Dashboard';
 import AnalyticsPage from './components/Analytics/AnalyticsPage';
 import LandingPage from './components/Landing/LandingPage';
-import './styles/shortiq-theme.css';
+import './styles/shortlq-theme.css';
 import './styles/App.css';
 import './styles/hero.css';
 

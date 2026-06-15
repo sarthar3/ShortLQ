@@ -82,12 +82,12 @@ const Login = () => {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{ width: '64px', height: '64px', margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src={logoImg} alt="ShortIQ" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 0 12px rgba(49,120,115,0.6))' }} />
+            <img src={logoImg} alt="ShortLQ" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 0 12px rgba(49,120,115,0.6))' }} />
           </div>
           <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#e6f4f3', marginBottom: '8px', letterSpacing: '-0.5px' }}>
             Welcome Back
           </h1>
-          <p style={{ color: '#99cccc', fontSize: '14px' }}>Sign in to your ShortIQ account</p>
+          <p style={{ color: '#99cccc', fontSize: '14px' }}>Sign in to your ShortLQ account</p>
         </div>
 
         {/* Error */}

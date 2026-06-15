@@ -20,11 +20,11 @@ const Navbar = () => {
               <div className="navbar-logo-icon">
                 <img
                   src={logoImg}
-                  alt="ShortIQ Logo"
+                  alt="ShortLQ Logo"
                   style={{ width: '80px', height: '80px', objectFit: 'contain', display: 'block' }}
                 />
               </div>
-              <span className="navbar-brand">ShortIQ</span>
+              <span className="navbar-brand">ShortLQ</span>
             </Link>
 
             <div className="navbar-menu">

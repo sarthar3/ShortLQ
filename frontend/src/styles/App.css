@@ -1,4 +1,4 @@
-/* ShortIQ — Orange Dark Mode UI */
+/* ShortLQ — Orange Dark Mode UI */
 
 * {
   margin: 0;
@@ -1188,7 +1188,7 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* body::before override removed — using shortiq-theme.css version instead */
+/* body::before override removed — using shortlq-theme.css version instead */
 
 /* Subtle animation for the water background */
 @keyframes waterFlow {

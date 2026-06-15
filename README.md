@@ -65,7 +65,7 @@ User Inputs Long URL + Expiry Timer -> Frontend Validates URL Format -> API Requ
 
 #### B. Redirection & Expiry Check
 ```
-Visitor Clicks shortiq.io/abc123 -> Express Route Handles GET /:shortCode
+Visitor Clicks shortlq.io/abc123 -> Express Route Handles GET /:shortCode
 -> Queries URL in MongoDB
 -> IF isExpired === true OR (expiresAt exists AND expiresAt < now):
      Returns 410 Gone Error page / Informs Visitor Link has expired

@@ -65,7 +65,7 @@ const LandingPage = () => {
                   <div className="mockup-dots">
                     <span></span><span></span><span></span>
                   </div>
-                  <span className="mockup-title">shortiq.io / dashboard</span>
+                  <span className="mockup-title">shortlq.io / dashboard</span>
                 </div>
                 <div className="mockup-body">
                   <div className="mockup-input-row">
@@ -76,7 +76,7 @@ const LandingPage = () => {
                   </div>
                   <div className="mockup-result">
                     <div className="mockup-result-left">
-                      <div className="mockup-short-url">shortiq.io / <strong>abc123</strong></div>
+                      <div className="mockup-short-url">shortlq.io / <strong>abc123</strong></div>
                       <div className="mockup-original-url">very-long-url-example.com/...</div>
                     </div>
                     <div className="mockup-clicks">
@@ -86,7 +86,7 @@ const LandingPage = () => {
                   </div>
                   <div className="mockup-result" style={{ opacity: 0.7 }}>
                     <div className="mockup-result-left">
-                      <div className="mockup-short-url">shortiq.io / <strong>xyz789</strong></div>
+                      <div className="mockup-short-url">shortlq.io / <strong>xyz789</strong></div>
                       <div className="mockup-original-url">another-website.com/article/...</div>
                     </div>
                     <div className="mockup-clicks">
@@ -96,7 +96,7 @@ const LandingPage = () => {
                   </div>
                   <div className="mockup-result" style={{ opacity: 0.4 }}>
                     <div className="mockup-result-left">
-                      <div className="mockup-short-url">shortiq.io / <strong>lmn456</strong></div>
+                      <div className="mockup-short-url">shortlq.io / <strong>lmn456</strong></div>
                       <div className="mockup-original-url">docs.example.com/guide/...</div>
                     </div>
                     <div className="mockup-clicks">
@@ -196,9 +196,9 @@ const LandingPage = () => {
         <div className="container">
           <ScrollReveal animation="scale-up" duration={900}>
             <div className="cta-card">
-              <img src={logoImg} alt="ShortIQ Logo" className="cta-logo" />
+              <img src={logoImg} alt="ShortLQ Logo" className="cta-logo" />
               <h2 className="cta-title">Start shortening links today</h2>
-              <p className="cta-subtitle">Join thousands of users who trust ShortIQ to manage their links</p>
+              <p className="cta-subtitle">Join thousands of users who trust ShortLQ to manage their links</p>
               <div className="cta-actions">
                 {isAuthenticated ? (
                   <Link to="/dashboard" className="btn-hero-primary">
@@ -226,10 +226,10 @@ const LandingPage = () => {
           <ScrollReveal animation="fade-in">
             <div className="footer-content">
               <div className="footer-brand">
-                <img src={logoImg} alt="ShortIQ" className="footer-logo" />
-                <span className="footer-brand-name">ShortIQ</span>
+                <img src={logoImg} alt="ShortLQ" className="footer-logo" />
+                <span className="footer-brand-name">ShortLQ</span>
               </div>
-              <p className="footer-copy">© 2025 ShortIQ. Smarter links, deeper insights.</p>
+              <p className="footer-copy">© 2025 ShortLQ. Smarter links, deeper insights.</p>
             </div>
           </ScrollReveal>
         </div>
